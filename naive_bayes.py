@@ -4,12 +4,34 @@ filename = "letter-recognition"
 extension = ".data"
 
 
+
 def read_data():
     file = open(filename + extension)
     lines = file.readlines()
     file.close()
     return lines
 
+def normalize_and_save_data(file_name,normalized_filename):
+    file = open(file_name)
+    data = file.readlines()
+    normalized_data = []
+
+    with open(normalized_filename, "w") as normalized_file:
+        for line in data:
+            array_data = line.split(',')
+            letter = array_data[0]
+            normalized_line = [letter]
+
+            for value in array_data[1:]:
+                normalized_line.append(float(value))  # Konwertuj na float
+            # Normalizuj wartości atrybutów do zakresu (0,1)
+            min_val = min(normalized_line[1:])
+            max_val = max(normalized_line[1:])
+            normalized_values = [(x - min_val) / (max_val - min_val) for x in normalized_line[1:]]
+            normalized_line[1:] = normalized_values
+
+            # Zapisz znormalizowany wiersz do pliku
+            normalized_file.write(",".join(map(str, normalized_line)) + "\n")
 
 def split_data(lines, number):
     file_name = "letter-recognition_trn" + number + ".data"
@@ -116,12 +138,20 @@ def write_result(result):
 
 
 if __name__ == '__main__':
+
+
+
     lines = read_data()
+
     names = split_data(lines, "1")
     names_tab = names.split(",")
+    # normalize_and_save_data(names_tab[0],"letter-recognition_trn1.data")
+    # normalize_and_save_data(names_tab[1],"letter-recognition_tst1.data")
+
 
     accuracy = naive_bayes(names_tab[0], names_tab[1])
     final_string = "Accuracy: " + str(accuracy) + "\n"
     print("Accuracy: " + str(accuracy))
 
     write_result(final_string)
+

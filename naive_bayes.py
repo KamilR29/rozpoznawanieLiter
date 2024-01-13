@@ -1,12 +1,11 @@
 import random
-import numpy as np
 
 filename = "letter-recognition"
 extension = ".data"
 
 
 def read_data():
-    file = open(filename+extension)
+    file = open(filename + extension)
     lines = file.readlines()
     file.close()
     return lines
@@ -55,7 +54,7 @@ def naive_bayes(trening_file, test_file):
     line_lenght = len(trn_data[0].split(",")) - 1
     # pętla tworząca słownik zliczająca wystąpienia poszczególnych danych w zależnoći od wyniku
     trn_values_dict = {}
-    for index in range(1,line_lenght+1):
+    for index in range(1, line_lenght + 1):
         i = str(index)
         trn_values_dict[i] = {}
         for line in trn_data:
@@ -117,24 +116,12 @@ def write_result(result):
 
 
 if __name__ == '__main__':
-
     lines = read_data()
-    names = split_data(lines,"1")
+    names = split_data(lines, "1")
     names_tab = names.split(",")
 
     accuracy = naive_bayes(names_tab[0], names_tab[1])
     final_string = "Accuracy: " + str(accuracy) + "\n"
     print("Accuracy: " + str(accuracy))
 
-    accuracy_sum = 0
-    accuracy_sum = accuracy_sum + accuracy
-    mean_accuracy = accuracy_sum / 1  # Modified: Divide by 1 as we have only one accuracy value
-    final_string += ("Mean accuracy: " + str(mean_accuracy) + "\n")
-
-    print("Mean accuracy: " + str(mean_accuracy))
-
-    standard_deviation = np.std([accuracy])  # Modified: Use a list with a single accuracy value
-    final_string += ("Standard deviation: " + str(standard_deviation) + "\n")
-
-    print("Standard deviation: " + str(standard_deviation))
     write_result(final_string)

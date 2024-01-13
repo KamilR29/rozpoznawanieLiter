@@ -22,7 +22,7 @@ def split_data(lines, number):
     random.shuffle(lines)
 
     total_lines = len(lines)
-    lines_70 = int(total_lines * 0.7)
+    lines_70 = int(total_lines * 0.8)
 
     for idx, line in enumerate(lines):
         if idx < lines_70:

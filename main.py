@@ -60,13 +60,35 @@ def split_data(lines):
     return names
 
 if __name__ == '__main__':
-    normalize_and_save_data("data/letter-recognition.data", "data/letter-recognition-normalized.data")
-    lines = read_data()
 
-    names = split_data(lines)
-    names_tab = names.split(",")
+    accuracyTabNB = []
+    accuracyTabKNN = []
 
-    accuracy = naive_bayes(names_tab[0], names_tab[1])
-    print("Naive bayes: " + str(accuracy))
-    accuracy = knn_sklearn(names_tab[0], names_tab[1], 3)
-    print("KNN: " + str(accuracy))
+    for i in range(10):
+        normalize_and_save_data("data/letter-recognition.data", "data/letter-recognition-normalized.data")
+        lines = read_data()
+
+        names = split_data(lines)
+        names_tab = names.split(",")
+
+        accuracy = naive_bayes(names_tab[0], names_tab[1])
+        accuracyTabNB.append(accuracy)
+        print("Naive bayes: " + str(accuracy))
+        accuracy = knn_sklearn(names_tab[0], names_tab[1], 3)
+        accuracyTabKNN.append(accuracy)
+        print("KNN: " + str(accuracy))
+
+    average_accuracyNB = 0
+    average_accuracyKNN = 0
+
+    for ac in accuracyTabNB:
+        average_accuracyNB += ac
+
+    for ac in accuracyTabKNN:
+        average_accuracyKNN += ac
+
+    average_accuracyNB = average_accuracyNB / len(accuracyTabNB)
+    average_accuracyKNN = average_accuracyKNN / len(accuracyTabKNN)
+
+    print("Average accuracy in Naive Bayes: " + average_accuracyNB)
+    print("Average accuracy in KNN: " + average_accuracyKNN)

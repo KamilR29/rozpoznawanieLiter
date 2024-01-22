@@ -46,7 +46,7 @@ def naive_bayes(trening_file, test_file):
             final_value = 1
 
             for i in range(1, len(array_data)):
-                if (array_data[i] in trn_values_dict[str(i)][value]):
+                if array_data[i] in trn_values_dict[str(i)][value]:
                     tmp = trn_values_dict[str(i)][value][array_data[i]]
                 else:
                     tmp = 0

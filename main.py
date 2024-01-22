@@ -90,5 +90,5 @@ if __name__ == '__main__':
     average_accuracyNB = average_accuracyNB / len(accuracyTabNB)
     average_accuracyKNN = average_accuracyKNN / len(accuracyTabKNN)
 
-    print("Average accuracy in Naive Bayes: " + average_accuracyNB)
-    print("Average accuracy in KNN: " + average_accuracyKNN)
+    print("Average accuracy in Naive Bayes: " + str(average_accuracyNB))
+    print("Average accuracy in KNN: " + str(average_accuracyKNN))
